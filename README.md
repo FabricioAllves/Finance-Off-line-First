@@ -15,7 +15,7 @@ Para esse projeto, optei por uma arquitetura baseada em domínios e casos de uso
 - Zustand
 - React-hook-form
 - Expo SQLite
-- DB - Supabase
+- DB externo - Supabase
 
 ## Capturas de Tela
 
