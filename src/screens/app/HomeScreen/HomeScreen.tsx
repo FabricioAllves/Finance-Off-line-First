@@ -1,12 +1,21 @@
-import { View, FlatList } from "react-native";
-import { Fab, Text } from "@components";
+import { View, FlatList, ListRenderItemInfo } from "react-native";
+import { Fab, PaymentCard, Text } from "@components";
 import LottieView from 'lottie-react-native';
 
 import {styles} from './styles'
-import { useListPayments } from "@domain";
+import { Payment, useListPayments } from "@domain";
 
 export function HomeScreen() {
-  const { paymentList, renderItem, contentKey, navigate } = useListPayments();
+  const { paymentList, contentKey, navigate } = useListPayments();
+
+  function renderItem({ item }: ListRenderItemInfo<Payment>) {
+    return (
+      <PaymentCard
+        payment={item}
+        onPress={() => navigate("NewPayment", { isEdit: true, data: item })}
+      />
+    );
+  }
 
   const contentMap = {
     empty: (

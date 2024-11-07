@@ -22,26 +22,6 @@ Para esse projeto, optei por uma arquitetura baseada em domínios e casos de uso
 ![capa](.github/bg.png)
 
 
-## Instalação
-
-Clone o repositório para sua maquina, execute o comando:
-
-```bash
-git clone https://github.com/FabricioAllves/Finance-Off-line-First.git
-```
-
-Para instalar as dependências do projeto, execute o comando:
-
-```bash
-yarn install
-```
-
-Para rodar o projeto, execute o comando:
-
-```bash
-yarn start
-```
-
 
 
 ---
