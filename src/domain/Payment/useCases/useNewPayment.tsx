@@ -18,7 +18,8 @@ export function useNewPayment() {
   const paymentDatabase = useDatabase();
   const { createPayment } = usePaymentCreate()
   const [isEditable, setIsEditable] = useState(!isEdit);
-  const { control, handleSubmit, setValue } = useForm<NewPaymentSchema>({
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const { control, handleSubmit, setValue, formState } = useForm<NewPaymentSchema>({
     resolver: zodResolver(newPaymentSchema),
     mode: 'onChange',
     defaultValues: {
@@ -62,6 +63,13 @@ export function useNewPayment() {
     }
   }
 
+  const confirmDelete = () => {
+    if (data) {
+      remove(data);
+    }
+    setShowDeleteAlert(false);
+  };
+
   useEffect(() => {
     if (data) {
       setValue("supplier", data.supplier);
@@ -74,13 +82,16 @@ export function useNewPayment() {
 
   return {
     submitForm,
+    formState,
     handleSubmit,
     control,
     goBack,
-    remove,
     data,
     setIsEditable,
     isEditable,
+    showDeleteAlert, 
+    setShowDeleteAlert,
     shouldShowEditModeButtons,
+    confirmDelete
   }
 }

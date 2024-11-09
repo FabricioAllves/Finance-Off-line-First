@@ -8,7 +8,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { SQLiteProvider } from "expo-sqlite"
 import { initializeDatabase } from '@database'
 import { Routes } from '@routes';
-
+import { StatusBar } from 'expo-status-bar';
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -18,11 +18,18 @@ export default function App() {
   if (!fontsLoaded) return null
 
   return (
+    <>
+    <StatusBar
+      style="dark"
+      translucent
+      backgroundColor="transparent"
+    />
     <SafeAreaView style={styles.safeArea}>
       <SQLiteProvider databaseName='database.db' onInit={initializeDatabase}>
         <Routes />
       </SQLiteProvider>
     </SafeAreaView>
+    </>
   );
 }
 

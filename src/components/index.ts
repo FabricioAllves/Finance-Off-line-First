@@ -9,3 +9,4 @@ export * from './CurrencyInput/CurrencyInput'
 export * from './Form/FormSelect';
 export * from './Form/FormDateInput';
 export * from './Form/FormCurrencyInput';
+export * from './Alert/Alert';

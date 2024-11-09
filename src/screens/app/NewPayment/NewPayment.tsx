@@ -1,34 +1,35 @@
+import React from "react";
 import { View, ScrollView, Pressable } from "react-native";
-import { Button, FormCurrencyInput, FormDateInput, FormSelect, Text } from "@components";
+import { Alert, Button, FormCurrencyInput, FormDateInput, FormSelect, Text } from "@components";
 import { paymentMethodList, suppliersList, typePaymentsList } from "mockSelect";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNewPayment } from "@domain";
-import {styles} from './styles'
+import { styles } from './styles';
 
 export function NewPayment() {
   const {
     goBack,
-    remove,
-    data,
+    confirmDelete,
+    formState,
     control,
     submitForm,
     isEditable,
     handleSubmit,
     setIsEditable,
+    showDeleteAlert,
+    setShowDeleteAlert,
     shouldShowEditModeButtons,
-  } = useNewPayment()
+  } = useNewPayment();
 
   const buttonActions = {
-    editMode: data ? (
+    editMode: 
       <>
-        <Button onPress={() => remove(data)} label="Deletar" backgroundColor="red_100" colorLabel="white" />
+        <Button onPress={() => setShowDeleteAlert(true)} label="Deletar" backgroundColor="red_100" colorLabel="white" />
         <Button onPress={() => setIsEditable(true)} label="Editar" />
-      </>
-    ) : null,
-    cancelMode: <Button onPress={() => goBack()} label="Cancelar" />,
-    saveMode: (
-      <Button onPress={handleSubmit(submitForm)} label="Salvar" colorLabel="white" backgroundColor="green_50" />
-    ),
+      </>,
+    cancelMode: formState.isDirty && <Button onPress={() => goBack()} label="Cancelar" />,
+    saveMode: <Button onPress={handleSubmit(submitForm)} label="Salvar" colorLabel="white" backgroundColor="green_50" />
+
   };
 
   return (
@@ -38,7 +39,7 @@ export function NewPayment() {
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </Pressable>
         <Text size="s18">Novo Pagamento</Text>
-        <Pressable >
+        <Pressable>
           <View style={{ width: 24 }} />
         </Pressable>
       </View>
@@ -84,10 +85,18 @@ export function NewPayment() {
           />
         </View>
       </ScrollView>
-      <View style={styles.buttons}>
-        {shouldShowEditModeButtons ? buttonActions.editMode : buttonActions.cancelMode}
-        {isEditable && buttonActions.saveMode}
-      </View>
+        <View style={styles.buttons}>
+          {shouldShowEditModeButtons ? buttonActions.editMode : buttonActions.cancelMode}
+          {isEditable && buttonActions.saveMode}
+        </View>
+
+      <Alert
+        title="Excluir"
+        message="Tem certeza que deseja excluir esse pagamento?"
+        visible={showDeleteAlert}
+        onClose={() => setShowDeleteAlert(false)}
+        onConfirm={confirmDelete}
+      />
     </View>
   );
 }

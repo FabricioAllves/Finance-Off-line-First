@@ -22,5 +22,6 @@ export const styles = StyleSheet.create({
   animation: {
     width: 200,
     height: 200,
+    marginTop: -200
   },
 });

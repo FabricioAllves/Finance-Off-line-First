@@ -22,22 +22,31 @@ export function Button({
         styles.container,
         {
           backgroundColor: disabled ? colorsTheme.green_25 : colorsTheme[backgroundColor],
-        }
+        },
       ]}
       activeOpacity={0.8}
       disabled={disabled}
       {...rest}
     >
-      <Text fontWeight="bold" color={colorLabel} size="s18">{label}</Text>
+      <Text
+        fontWeight="bold"
+        color={disabled ? 'gray_300' : colorLabel}
+        size="s18"
+      >
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     paddingVertical: 16,
-    alignItems: 'center',
+    minWidth: 100,        
+    maxHeight: 60,         
+    height: 60,           
+    alignItems: 'center', 
+    justifyContent: 'center',
     borderRadius: 10,
   },
 });
